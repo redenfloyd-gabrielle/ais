@@ -1,3 +1,4 @@
+import { useAppStore } from '@/stores/app';
 import { createRouter, createWebHistory } from 'vue-router'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -5,7 +6,30 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      redirect: '/login' // redirect for now
+      component: () => import('@/views/HomeView.vue'),
+      redirect: '/dashboard',
+      children: [
+        {
+          path: '/dashboard',
+          name: 'dashboard',
+          component: () => import('@/components/dashboard/Dashboard.vue')
+        },
+        {
+          path: '/users',
+          name: 'users',
+          component: () => import('@/components/user/User.vue')
+        },
+        {
+          path: '/users/active',
+          name: 'active users',
+          component: () => import('@/components/user/User.vue')
+        },
+        {
+          path: '/users/inactive',
+          name: 'inactive users',
+          component: () => import('@/components/user/User.vue')
+        }
+      ]
     },
     {
       path: '/login',
@@ -176,5 +200,14 @@ const router = createRouter({
 //   //IMPORTANT DO NOT REMOVE
 //   // next();
 // })
+
+router.beforeEach(async (to, from, next) => {
+  const appStore = useAppStore()
+  appStore.currentRoute = to.name?.toString()
+  console.log(`appStore.currentRoute :: ${appStore.currentRoute}`)
+
+
+  next()
+})
 
 export default router

@@ -11,6 +11,11 @@ export enum USER_TYPE {
   Sales = 'Sales'
 }
 
+export enum USER_STATUS {
+  Active = 'Active', // root
+  Inactive = 'Inactive', // Adminstrator
+}
+
 export enum PO_STATUS {
   Pending = 'Pending',
   Processing = 'Processing',
@@ -57,9 +62,9 @@ export interface User {
   middle_name?: string
   last_name: string
   contact_number: string
-  suffix?: string
-  user_type: USER_TYPE
-  email: string
+  type: USER_TYPE
+  email: string,
+  status: USER_STATUS,
 }
 
 export interface Region {

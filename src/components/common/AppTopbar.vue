@@ -5,15 +5,18 @@
       <span>AIS</span>
     </router-link>
 
-    <button class="p-link layout-menu-button layout-topbar-button" @click="console.log('test')">
+    <button class="p-link layout-menu-button layout-topbar-button" @click="appStore.onMenuToggle()">
       <i class="pi pi-bars"></i>
     </button>
 
-    <button class="p-link layout-topbar-menu-button layout-topbar-button" @click="console.log('test')">
+    <button
+      class="p-link layout-topbar-menu-button layout-topbar-button"
+      @click="appStore.onTopBarMenuButton()"
+    >
       <i class="pi pi-ellipsis-v"></i>
     </button>
 
-    <div class="layout-topbar-menu">
+    <div class="layout-topbar-menu" :class="appStore.topbarMenuClasses">
       <button @click="console.log('test')" class="p-link layout-topbar-button">
         <i class="pi pi-calendar"></i>
         <span>Calendar</span>
@@ -31,12 +34,52 @@
 </template>
 
 <script setup lang="ts">
-import { useSessionStore } from '@/stores/session';
+import { useAppStore } from '@/stores/app'
+import { useSessionStore } from '@/stores/session'
+import { onBeforeUnmount, onMounted, ref } from 'vue'
 
-
-
+const appStore = useAppStore()
 const sessionStore = useSessionStore()
+const outsideClickListener = ref()
 
+onMounted(() => {
+  bindOutsideClickListener()
+})
+
+onBeforeUnmount(() => {
+  unbindOutsideClickListener()
+})
+
+const bindOutsideClickListener = () => {
+  if (!outsideClickListener.value) {
+    outsideClickListener.value = (event: any) => {
+      if (isOutsideClicked(event)) {
+        appStore.topbarMenuActive = false
+      }
+    }
+    document.addEventListener('click', outsideClickListener.value)
+  }
+}
+const unbindOutsideClickListener = () => {
+  if (outsideClickListener.value) {
+    document.removeEventListener('click', outsideClickListener.value)
+    outsideClickListener.value = null
+  }
+}
+
+const isOutsideClicked = (event) => {
+  if (!appStore.topbarMenuActive) return
+
+  const sidebarEl = document.querySelector('.layout-topbar-menu')
+  const topbarEl = document.querySelector('.layout-topbar-menu-button')
+
+  return !(
+    sidebarEl?.isSameNode(event.target) ||
+    sidebarEl?.contains(event.target) ||
+    topbarEl?.isSameNode(event.target) ||
+    topbarEl?.contains(event.target)
+  )
+}
 </script>
 
 <style scoped>
