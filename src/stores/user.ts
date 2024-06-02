@@ -1,8 +1,9 @@
 import { ref, computed, watch } from 'vue'
 import { defineStore } from 'pinia'
-import { USER_STATUS, USER_TYPE, type User } from './types'
+import { USER_STATUS, USER_TYPE, type ApiResponse, type User } from './types'
 import { faker } from '@faker-js/faker'
-import { useAppStore } from './app';
+import { useAppStore } from './app'
+import type { ToastMessageOptions } from 'primevue/toast'
 
 export const useUserStore = defineStore('user', () => {
   const appStore = useAppStore()
@@ -59,7 +60,6 @@ export const useUserStore = defineStore('user', () => {
   const thisUser = ref({} as User)
   const selectedUser = ref({} as User)
 
-
   // const toggleState = ref(true)
 
   // watch(toggleState, () => {
@@ -68,10 +68,10 @@ export const useUserStore = defineStore('user', () => {
   // })
 
   const filteredUsers = computed(() => {
-
     const _routeName = appStore.currentRoute
     console.log(`_routeName :: ${_routeName}`)
-    const _status = _routeName.split(' ')[0].charAt(0).toUpperCase() + _routeName.split(' ')[0].slice(1);
+    const _status =
+      _routeName.split(' ')[0].charAt(0).toUpperCase() + _routeName.split(' ')[0].slice(1)
     console.log(`_status :: ${_status}`)
     // const _status = 'users'
     let _users = [] as User[]
@@ -84,7 +84,6 @@ export const useUserStore = defineStore('user', () => {
     return _users
   })
 
-
   const _fakeUser = (type?: any) => {
     const _user = {} as User
 
@@ -95,7 +94,11 @@ export const useUserStore = defineStore('user', () => {
     _user.username = `${_user.first_name}.${_user.last_name}`.toLowerCase()
     _user.contact_number = faker.phone.number('+639## ### ####')
     _user.password = `${_user.last_name}_123`
-    _user.type = type ?? faker.helpers.arrayElement(Object.values(USER_TYPE).filter((_value => _value !== USER_TYPE.SuperAdmin)))
+    _user.type =
+      type ??
+      faker.helpers.arrayElement(
+        Object.values(USER_TYPE).filter((_value) => _value !== USER_TYPE.SuperAdmin)
+      )
     _user.status = faker.helpers.arrayElement(Object.values(USER_STATUS))
     _user.email = faker.internet.email({
       firstName: _user.first_name.toLowerCase(),
@@ -121,33 +124,85 @@ export const useUserStore = defineStore('user', () => {
     selectedUser.value = {} as User
   }
 
-  const saveUser = () => {
+
+  const isUserValid = (payload: User) => {
+    if (payload.first_name === '') {
+      return false
+    }
+
+    if (payload.last_name === '') {
+      return false
+    }
+
+    if (!payload.type) {
+      return false
+    }
+
+    return true;
+  }
+
+  const saveUser = async (): Promise<ApiResponse> => {
     if (thisUser.value.uuid) {
-      updateUser(thisUser.value)
+      return await updateUser(thisUser.value)
     } else {
-      addUser(thisUser.value)
+      return await addUser(thisUser.value)
     }
-    clearUserState()
   }
 
-  const addUser = (payload: User) => {
-    payload.uuid = faker.string.uuid()
-    payload.username = `${payload.first_name.split(' ')[0]}.${payload.last_name}`.toLowerCase()
-    users.value.unshift(payload);
+  const addUser = async (payload: User): Promise<ApiResponse> => {
+    if (isUserValid(payload)) {
+      payload.uuid = faker.string.uuid()
+      payload.username = `${payload.first_name.split(' ')[0]}.${payload.last_name}`.toLowerCase()
+      users.value.unshift(payload)
+      return {
+        status: 'success',
+        message: 'User updated successfully',
+        data: payload
+      }
+    } else {
+      return {
+        status: 'error',
+        message: 'Missing required fields'
+      }
+
+    }
+
   }
 
-  const updateUser = async (payload: User) => {
-    const idx = users.value.findIndex(item => item.uuid === payload.uuid);
+  const updateUser = async (payload: User): Promise<ApiResponse> => {
+    const idx = users.value.findIndex((item) => item.uuid === payload.uuid)
     if (idx != -1) {
-      users.value.splice(idx, 1, payload)
+      users.value[idx] = payload
+      return {
+        status: 'success',
+        message: 'User updated successfully',
+        data: payload
+      }
+    } else {
+      return {
+        status: 'error',
+        message: 'User not found'
+      }
     }
   }
 
-  const deleteUser = (payload: User) => {
-    const idx = users.value.findIndex(item => item.uuid === payload.uuid);
+  const deleteUser = async (payload: User): Promise<ApiResponse> => {
+    const idx = users.value.findIndex((item) => item.uuid === payload.uuid)
     if (idx != -1) {
       users.value.splice(idx, 1)
+      return {
+        status: 'success',
+        message: 'User deleted successfully',
+        data: payload
+      }
     }
+    else {
+      return {
+        status: 'error',
+        message: 'User not found'
+      }
+    }
+
   }
 
   const getUsers = () => {
@@ -158,7 +213,6 @@ export const useUserStore = defineStore('user', () => {
     // return Promise.resolve(users.value);
   }
 
-
   const getUser = (payload: User): User => {
     console.log('users.value ::', users.value)
     return users.value.find(
@@ -166,7 +220,15 @@ export const useUserStore = defineStore('user', () => {
     ) as User
   }
 
-
-
-  return { users, thisUser, selectedUser, filteredUsers, clearUserState, saveUser, deleteUser, getUser, getUsers }
+  return {
+    users,
+    thisUser,
+    selectedUser,
+    filteredUsers,
+    clearUserState,
+    saveUser,
+    deleteUser,
+    getUser,
+    getUsers
+  }
 })

@@ -31,6 +31,12 @@ export enum PAYMENT_STATUS {
   Overdue = 'Overdue'
 }
 
+export interface ApiResponse<T = any> {
+  status: 'success' | 'info' | 'warn' | 'error' | 'secondary' | 'contrast' | undefined
+  message: string;
+  data?: T;
+}
+
 export interface Book {
   uuid: string
   unit_price: number

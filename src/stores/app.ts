@@ -1,9 +1,11 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import { useRoute } from 'vue-router'
+import { useToast } from 'primevue/usetoast'
+import type { ApiResponse } from './types'
 
 export const useAppStore = defineStore('app', () => {
-
+  const toast = useToast()
   const route = useRoute()
 
   const menuMode = ref('static')
@@ -53,7 +55,12 @@ export const useAppStore = defineStore('app', () => {
     return route.path === item.to
   }
 
+  const displayToast = (data: ApiResponse) => {
+    toast.add({ severity: data.status, summary: data.status === 'success' ? 'Successful Message' : 'Error Message', detail: data.message, life: 3000 })
+  }
+
   return {
+    toast,
     currentRoute,
     containerClass,
     activeMenuItem,
@@ -62,6 +69,7 @@ export const useAppStore = defineStore('app', () => {
     staticMenuMobileActive,
     topbarMenuActive,
     topbarMenuClasses,
+    displayToast,
     onMenuToggle,
     onTopBarMenuButton,
     checkActiveRoute

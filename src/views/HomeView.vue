@@ -14,7 +14,7 @@
     <!-- <app-config></app-config> -->
     <div class="layout-mask"></div>
   </div>
-  <!-- <Toast /> -->
+  <Toast  />
 </template>
 
 <script setup lang="ts">
