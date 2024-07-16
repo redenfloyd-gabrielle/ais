@@ -22,3 +22,11 @@ div[aria-label='Active'].p-button.p-highlight::before {
 div[aria-label='Inactive'].p-button.p-highlight::before {
   background: var(--red-100) !important;
 }
+
+.p-datatable-loading-icon {
+  color: #fff !important;
+}
+
+.centered-text .p-inputtext {
+  text-align: center !important;
+}

@@ -67,7 +67,7 @@ const unbindOutsideClickListener = () => {
   }
 }
 
-const isOutsideClicked = (event) => {
+const isOutsideClicked = (event : any) => {
   if (!appStore.topbarMenuActive) return
 
   const sidebarEl = document.querySelector('.layout-topbar-menu')

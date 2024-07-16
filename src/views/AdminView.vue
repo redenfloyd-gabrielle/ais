@@ -1,8 +1,27 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
+  <div class="layout-wrapper">
+    <AppTopbar />
+    <div class="layout-sidebar">
+      <AppSidebar />
+      <!-- <app-sidebar></app-sidebar> -->
+    </div>
+    <div class="layout-main-container">
+      <div class="layout-main">
+        <RouterView />
+      </div>
+      <!-- <app-footer></app-footer> -->
+    </div>
+    <!-- <app-config></app-config> -->
+    <div class="layout-mask"></div>
   </div>
+  <!-- <Toast /> -->
 </template>
+
+<script setup lang="ts">
+import { RouterLink, RouterView } from 'vue-router'
+import AppTopbar from '@/components/common/AppTopbar.vue'
+import AppSidebar from '@/components/common/AppSidebar.vue'
+</script>
 
 <style>
 @media (min-width: 1024px) {

@@ -12,7 +12,9 @@ export const useMenuStore = defineStore('menu', () => {
       items: [
         { label: 'Dashboard', icon: 'pi pi-fw pi-home', to: '/dashboard' },
         {
-          label: 'Users', icon: 'pi pi-fw pi-users', items: [
+          label: 'Users',
+          icon: 'pi pi-fw pi-users',
+          items: [
             {
               label: 'All Users',
               icon: 'pi pi-fw pi-users',
@@ -29,19 +31,22 @@ export const useMenuStore = defineStore('menu', () => {
               to: '/users/inactive'
             }
           ]
-        },
+        }
       ],
       // separator: false,
       user: USER_TYPE.SuperAdmin
     },
     {
       label: 'Home',
-      items: [{ label: 'Dashboard', icon: 'pi pi-fw pi-home', to: '/superadmin/dashboard' }],
+      items: [
+        { label: 'Dashboard', icon: 'pi pi-fw pi-home', to: '/dashboard' },
+        { label: 'Schools', icon: 'pi pi-fw pi-graduation-cap', to: '/schools' },
+        { label: 'Books', icon: 'pi pi-fw pi-book', to: '/books' }
+      ],
       separator: false,
       user: USER_TYPE.SuperAdmin
     }
   ])
-
 
   const menu = computed(() => (userType: USER_TYPE) => {
     console.log(`USER TYPE :: ${userType}`)
@@ -50,9 +55,8 @@ export const useMenuStore = defineStore('menu', () => {
   })
 
   const setActiveMenuItem = (item: any) => {
-    appStore.activeMenuItem = item.value || item;
+    appStore.activeMenuItem = item.value || item
   }
-
 
   return { menu, isActiveMenu, setActiveMenuItem }
 })

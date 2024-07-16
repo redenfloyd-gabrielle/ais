@@ -1,4 +1,4 @@
-import { useAppStore } from '@/stores/app';
+import { useAppStore } from '@/stores/app'
 import { createRouter, createWebHistory } from 'vue-router'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -28,6 +28,16 @@ const router = createRouter({
           path: '/users/inactive',
           name: 'inactive users',
           component: () => import('@/components/user/User.vue')
+        },
+        {
+          path: '/schools',
+          name: 'schools',
+          component: () => import('@/components/school/School.vue')
+        },
+        {
+          path: '/books',
+          name: 'books',
+          component: () => import('@/components/book/Book.vue')
         }
       ]
     },
@@ -37,12 +47,26 @@ const router = createRouter({
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import('../views/LoginView.vue')
+      component: () => import('@/views/LoginView.vue')
     },
     {
       path: '/superadmin',
       name: 'superadmin',
-      component: () => import('../views/SuperAdminView.vue')
+      component: () => import('@/views/SuperAdminView.vue')
+      // component: TourView,
+      // children: [
+      //   {
+      //     path: 'space',
+      //     name: 'space tour',
+      //     component: TourView
+      //   }
+
+      // ]
+    },
+    {
+      path: '/admin',
+      name: 'admin',
+      component: () => import('@/views/AdminView.vue')
       // component: TourView,
       // children: [
       //   {
@@ -205,7 +229,6 @@ router.beforeEach(async (to, from, next) => {
   const appStore = useAppStore()
   appStore.currentRoute = to.name?.toString()
   console.log(`appStore.currentRoute :: ${appStore.currentRoute}`)
-
 
   next()
 })

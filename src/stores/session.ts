@@ -18,7 +18,7 @@ export const useSessionStore = defineStore('session', () => {
     //   JSON.stringify(thisUser.value) === '{}',
     //   thisUser.value
     // )
-    if (JSON.stringify(userStore.thisUser.value) === '{}') {
+    if (JSON.stringify(userStore.thisUser) === '{}') {
       loginError.value = [
         {
           severity: 'error',
@@ -30,7 +30,7 @@ export const useSessionStore = defineStore('session', () => {
       return
     }
 
-    if (!userStore.thisUser.value.username) {
+    if (!userStore.thisUser.username) {
       loginError.value = [
         {
           severity: 'error',
@@ -42,7 +42,7 @@ export const useSessionStore = defineStore('session', () => {
       return
     }
 
-    if (!userStore.thisUser.value.password) {
+    if (!userStore.thisUser.password) {
       loginError.value = [
         {
           severity: 'error',
@@ -58,13 +58,14 @@ export const useSessionStore = defineStore('session', () => {
     const foundUser = userStore.getUser(userStore.thisUser)
     console.log('foundUser ::', foundUser)
     if (foundUser) {
-      switch (foundUser.user_type) {
+      switch (foundUser.type) {
         case USER_TYPE.SuperAdmin:
           console.log('System Administrator')
           router.push('/superadmin')
           break
         case USER_TYPE.Admin:
           console.log('Administrator')
+          router.push('/admin')
           break
         case USER_TYPE.Accountant:
           console.log('Accountant')

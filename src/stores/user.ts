@@ -84,7 +84,18 @@ export const useUserStore = defineStore('user', () => {
     return _users
   })
 
-  const _fakeUser = (type?: any) => {
+  const salesAgentUsers = computed(() => {
+    return users.value
+      .filter((_user) => _user.status === USER_STATUS.Active && _user.type === USER_TYPE.Sales)
+      .map((filtered) => {
+        return {
+          ...filtered,
+          fullname: `${filtered.first_name} ${filtered.middle_name ? filtered.middle_name.slice(0, 1) + '.' : ''} ${filtered.last_name}`
+        }
+      })
+  })
+
+  const _fakeUser = (type?: any): User => {
     const _user = {} as User
 
     _user.uuid = faker.string.uuid()
@@ -124,7 +135,6 @@ export const useUserStore = defineStore('user', () => {
     selectedUser.value = {} as User
   }
 
-
   const isUserValid = (payload: User) => {
     if (payload.first_name === '') {
       return false
@@ -134,11 +144,23 @@ export const useUserStore = defineStore('user', () => {
       return false
     }
 
+    if (!payload.contact_number) {
+      return false
+    }
+
+    if (!payload.email) {
+      return false
+    }
+
     if (!payload.type) {
       return false
     }
 
-    return true;
+    if (!payload.status) {
+      return false
+    }
+
+    return true
   }
 
   const saveUser = async (): Promise<ApiResponse> => {
@@ -164,9 +186,7 @@ export const useUserStore = defineStore('user', () => {
         status: 'error',
         message: 'Missing required fields'
       }
-
     }
-
   }
 
   const updateUser = async (payload: User): Promise<ApiResponse> => {
@@ -195,14 +215,12 @@ export const useUserStore = defineStore('user', () => {
         message: 'User deleted successfully',
         data: payload
       }
-    }
-    else {
+    } else {
       return {
         status: 'error',
         message: 'User not found'
       }
     }
-
   }
 
   const getUsers = () => {
@@ -211,6 +229,14 @@ export const useUserStore = defineStore('user', () => {
     users.value.push(..._users)
     // return users.value
     // return Promise.resolve(users.value);
+  }
+
+  const getUserByUuid = (payload: User): User | undefined => {
+    if (payload && payload.uuid) {
+      return users.value.find((u) => u.uuid === payload.uuid) as User
+    } else {
+      return undefined
+    }
   }
 
   const getUser = (payload: User): User => {
@@ -225,10 +251,13 @@ export const useUserStore = defineStore('user', () => {
     thisUser,
     selectedUser,
     filteredUsers,
+    salesAgentUsers,
     clearUserState,
     saveUser,
     deleteUser,
     getUser,
-    getUsers
+    getUserByUuid,
+    getUsers,
+    isUserValid
   }
 })

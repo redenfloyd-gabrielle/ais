@@ -1,7 +1,13 @@
+export enum TABLE_DATA {
+  User = 'users',
+  School = 'schools',
+  Book = 'books'
+}
+
 export enum BOOK_CATEGORY {
   PreSchool = 'Pre School',
   ElementarySchool = 'Elementary School',
-  HihgSchool = 'High School'
+  HighSchool = 'High School'
 }
 
 export enum USER_TYPE {
@@ -13,7 +19,7 @@ export enum USER_TYPE {
 
 export enum USER_STATUS {
   Active = 'Active', // root
-  Inactive = 'Inactive', // Adminstrator
+  Inactive = 'Inactive' // Adminstrator
 }
 
 export enum PO_STATUS {
@@ -31,20 +37,32 @@ export enum PAYMENT_STATUS {
   Overdue = 'Overdue'
 }
 
+export enum ADDRESS_TYPE {
+  Regions = 'region',
+  Provinces = 'province',
+  Cities = 'city',
+  Barangays = 'barangay'
+}
+
 export interface ApiResponse<T = any> {
   status: 'success' | 'info' | 'warn' | 'error' | 'secondary' | 'contrast' | undefined
-  message: string;
-  data?: T;
+  message: string
+  data?: T
 }
 
 export interface Book {
   uuid: string
-  unit_price: number
+  unit_price: string
   title: string
   category: BOOK_CATEGORY
   year_published: number
   author: string
-  remarks: string
+  remarks?: string
+}
+
+export interface BookFilterData {
+  category?: BOOK_CATEGORY
+  keywords?: string
 }
 
 export interface BookInventory {
@@ -69,41 +87,57 @@ export interface User {
   last_name: string
   contact_number: string
   type: USER_TYPE
-  email: string,
-  status: USER_STATUS,
+  email: string
+  status: USER_STATUS
+}
+
+export interface AddressPH {
+  [key: string]: Region
 }
 
 export interface Region {
+  code: string
   name: string
   provinces: Province[]
 }
 
 export interface Province {
+  code: string
   name: string
-  barangays: Barangay
-  postal_code: number
+  region_code: string
+  cities: City[]
+}
+
+export interface City {
+  code: string
+  name: string
+  province_code: string
+  barangays: Barangay[]
 }
 
 export interface Barangay {
+  code: string
   name: string
+  city_code: string
 }
 
 export interface Address {
   region: string
   province: string
+  city: string
   barangay: string
-  postalCode: number
-  address_1?: string
+  address_1: string
   address_2?: string
 }
 
 export interface School {
+  uuid: String
   name: string
   address: Address
-  principal: string
-  contact_number: string
+  telephone_number?: string
+  mobile_number: string
   person_in_charge: string
-  phone_number?: string
+  person_in_charge_contact_number: string
   email: string
   agent: User
 }
