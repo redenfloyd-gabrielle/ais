@@ -52,7 +52,7 @@ export interface ApiResponse<T = any> {
 
 export interface Book {
   uuid: string
-  unit_price: string
+  unit_price: number
   title: string
   category: BOOK_CATEGORY
   year_published: number

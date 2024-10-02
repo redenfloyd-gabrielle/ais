@@ -72,7 +72,7 @@
             <template #body="slotProps">
               <!-- <Button icon="pi pi-eye" class="mr-2" severity="info" rounded @click="" /> -->
               <Button icon="pi pi-pencil" class="mr-2" severity="success" rounded
-                @click="onClickEditBtn(slotProps.data as School)" />
+                @click="onClickEditBtn(slotProps.data as Book)" />
               <Button icon="pi pi-trash" class="mt-2" severity="danger" rounded
                 @click="confirmDeleteProduct(slotProps.data)" />
             </template>
@@ -151,15 +151,15 @@
               <!-- <InputMask class="p-inputtext-sm" id="mobile_number" mask="+63999 999 9999"
                   placeholder="+63999 999 9999" :invalid="formSubmitted" /> -->
               <!-- </IconField> -->
-              <small class="p-invalid text-red-300" v-if="formSubmitted && !bookStore.thisBook.unit_price"">
+              <small class="p-invalid text-red-300" v-if="formSubmitted && !bookStore.thisBook.unit_price">
                 Unit Price is required.
               </small>
             </div>
             <div class=" field col-12 md:col-6">
-                <label for="remarks" style="font-size: 0.875rem !important; font-weight: 500 !important">
-                  Remarks
-                </label>
-                <Textarea size="small" autoResize rows="3" cols="60" id="remarks" />
+              <label for="remarks" style="font-size: 0.875rem !important; font-weight: 500 !important">
+                Remarks
+              </label>
+              <Textarea size="small" autoResize rows="3" cols="60" id="remarks" />
             </div>
           </div>
           <!-- <h6>Address</h6>
@@ -168,12 +168,12 @@
               <label for="resgion" style="font-size: 0.875rem !important; font-weight: 500 !important">
                 Region *
               </label>
-              <Dropdown class="p-inputtext-sm" size="small" id="resgion" v-model="bookStore.thisSchool.address.region"
+              <Dropdown class="p-inputtext-sm" size="small" id="resgion" v-model="bookStore.thisBook.address.region"
                 :options="addressStore.regions" optionValue="name" optionLabel="name" placeholder="Select Region"
-                :invalid="formSubmitted && !bookStore.thisSchool.address.region"
-                :dropdownIcon="formSubmitted && !bookStore.thisSchool.address.region ? 'pi pi-chevron-down text-red-300' : 'pi pi-chevron-down'">
+                :invalid="formSubmitted && !bookStore.thisBook.address.region"
+                :dropdownIcon="formSubmitted && !bookStore.thisBook.address.region ? 'pi pi-chevron-down text-red-300' : 'pi pi-chevron-down'">
               </Dropdown>
-              <small class="p-invalid text-red-300" v-if="formSubmitted && !bookStore.thisSchool.address.region">
+              <small class="p-invalid text-red-300" v-if="formSubmitted && !bookStore.thisBook.address.region">
                 Region is required.
               </small>
             </div>
@@ -182,12 +182,12 @@
                 Province *
               </label>
               <Dropdown class="p-inputtext-sm" size="small" id="province"
-                v-model="bookStore.thisSchool.address.province" :options="addressStore.provinces" optionValue="name"
-                optionLabel="name" placeholder="Select Province" :disabled="bookStore.thisSchool.address.region === ''"
-                :invalid="formSubmitted && !bookStore.thisSchool.address.province"
-                :dropdownIcon="formSubmitted && !bookStore.thisSchool.address.province ? 'pi pi-chevron-down text-red-300' : 'pi pi-chevron-down'">
+                v-model="bookStore.thisBook.address.province" :options="addressStore.provinces" optionValue="name"
+                optionLabel="name" placeholder="Select Province" :disabled="bookStore.thisBook.address.region === ''"
+                :invalid="formSubmitted && !bookStore.thisBook.address.province"
+                :dropdownIcon="formSubmitted && !bookStore.thisBook.address.province ? 'pi pi-chevron-down text-red-300' : 'pi pi-chevron-down'">
               </Dropdown>
-              <small class="p-invalid text-red-300" v-if="formSubmitted && !bookStore.thisSchool.address.province">
+              <small class="p-invalid text-red-300" v-if="formSubmitted && !bookStore.thisBook.address.province">
                 Province is required.
               </small>
             </div>
@@ -195,13 +195,13 @@
               <label for="city" style="font-size: 0.875rem !important; font-weight: 500 !important">
                 City *
               </label>
-              <Dropdown class="p-inputtext-sm" size="small" id="city" v-model="bookStore.thisSchool.address.city"
+              <Dropdown class="p-inputtext-sm" size="small" id="city" v-model="bookStore.thisBook.address.city"
                 :options="addressStore.cities" optionValue="name" optionLabel="name" placeholder="Select City"
-                :disabled="bookStore.thisSchool.address.province === ''"
-                :invalid="formSubmitted && !bookStore.thisSchool.address.city"
-                :dropdownIcon="formSubmitted && !bookStore.thisSchool.address.city ? 'pi pi-chevron-down text-red-300' : 'pi pi-chevron-down'">
+                :disabled="bookStore.thisBook.address.province === ''"
+                :invalid="formSubmitted && !bookStore.thisBook.address.city"
+                :dropdownIcon="formSubmitted && !bookStore.thisBook.address.city ? 'pi pi-chevron-down text-red-300' : 'pi pi-chevron-down'">
               </Dropdown>
-              <small class="p-invalid text-red-300" v-if="formSubmitted && !bookStore.thisSchool.address.city">
+              <small class="p-invalid text-red-300" v-if="formSubmitted && !bookStore.thisBook.address.city">
                 City is required.
               </small>
             </div>
@@ -210,12 +210,12 @@
                 Barangay *
               </label>
               <Dropdown class="p-inputtext-sm" size="small" id="barangay"
-                v-model="bookStore.thisSchool.address.barangay" :options="addressStore.barangays" optionValue="name"
-                optionLabel="name" placeholder="Select Barangay" :disabled="bookStore.thisSchool.address.city === ''"
-                :invalid="formSubmitted && !bookStore.thisSchool.address.province"
-                :dropdownIcon="formSubmitted && !bookStore.thisSchool.address.barangay ? 'pi pi-chevron-down text-red-300' : 'pi pi-chevron-down'">
+                v-model="bookStore.thisBook.address.barangay" :options="addressStore.barangays" optionValue="name"
+                optionLabel="name" placeholder="Select Barangay" :disabled="bookStore.thisBook.address.city === ''"
+                :invalid="formSubmitted && !bookStore.thisBook.address.province"
+                :dropdownIcon="formSubmitted && !bookStore.thisBook.address.barangay ? 'pi pi-chevron-down text-red-300' : 'pi pi-chevron-down'">
               </Dropdown>
-              <small class="p-invalid text-red-300" v-if="formSubmitted && !bookStore.thisSchool.address.barangay">
+              <small class="p-invalid text-red-300" v-if="formSubmitted && !bookStore.thisBook.address.barangay">
                 Barangay is required.
               </small>
             </div>
@@ -225,12 +225,12 @@
               </label>
               <IconField>
                 <InputIcon class="pi pi-map"
-                  :class="formSubmitted && !bookStore.thisSchool.address.address_1 ? 'text-red-300' : ''" />
+                  :class="formSubmitted && !bookStore.thisBook.address.address_1 ? 'text-red-300' : ''" />
                 <InputText id="detail_address1" type="text" size="small"
-                  v-model="bookStore.thisSchool.address.address_1"
-                  :invalid="formSubmitted && !bookStore.thisSchool.address.address_1" />
+                  v-model="bookStore.thisBook.address.address_1"
+                  :invalid="formSubmitted && !bookStore.thisBook.address.address_1" />
               </IconField>
-              <small class="p-invalid text-red-300" v-if="formSubmitted && !bookStore.thisSchool.address.address_1">
+              <small class="p-invalid text-red-300" v-if="formSubmitted && !bookStore.thisBook.address.address_1">
                 Detailed Address is required.
               </small>
             </div>
@@ -241,7 +241,7 @@
               <IconField>
                 <InputIcon class="pi pi-map" />
                 <InputText id="detail_address2" type="text" size="small"
-                  v-model="bookStore.thisSchool.address.address_2" />
+                  v-model="bookStore.thisBook.address.address_2" />
               </IconField>
             </div>
           </div> -->
@@ -253,12 +253,12 @@
               </label>
               <IconField>
                 <InputIcon class="pi pi-id-card"
-                  :class="formSubmitted && !bookStore.thisSchool.person_in_charge ? 'text-red-300' : ''" />
+                  :class="formSubmitted && !bookStore.thisBook.person_in_charge ? 'text-red-300' : ''" />
                 <InputText id="person_in_charge" type="text" size="small"
-                  v-model="bookStore.thisSchool.person_in_charge"
-                  :invalid="formSubmitted && !bookStore.thisSchool.person_in_charge" />
+                  v-model="bookStore.thisBook.person_in_charge"
+                  :invalid="formSubmitted && !bookStore.thisBook.person_in_charge" />
               </IconField>
-              <small class="p-invalid text-red-300" v-if="formSubmitted && !bookStore.thisSchool.person_in_charge">
+              <small class="p-invalid text-red-300" v-if="formSubmitted && !bookStore.thisBook.person_in_charge">
                 Person In Charged is required.
               </small>
             </div>
@@ -268,14 +268,14 @@
               </label>
               <IconField>
                 <InputIcon class="pi pi-mobile"
-                  :class="formSubmitted && !bookStore.thisSchool.person_in_charge_contact_number ? 'text-red-300' : ''" />
+                  :class="formSubmitted && !bookStore.thisBook.person_in_charge_contact_number ? 'text-red-300' : ''" />
                 <InputMask class="p-inputtext-sm" id="mobile_number"
-                  v-model="bookStore.thisSchool.person_in_charge_contact_number" mask="+63999 999 9999"
+                  v-model="bookStore.thisBook.person_in_charge_contact_number" mask="+63999 999 9999"
                   placeholder="+63999 999 9999"
-                  :invalid="formSubmitted && !bookStore.thisSchool.person_in_charge_contact_number" />
+                  :invalid="formSubmitted && !bookStore.thisBook.person_in_charge_contact_number" />
               </IconField>
               <small class="p-invalid text-red-300"
-                v-if="formSubmitted && !bookStore.thisSchool.person_in_charge_contact_number">
+                v-if="formSubmitted && !bookStore.thisBook.person_in_charge_contact_number">
                 Person In Charge Contact Number is required.
               </small>
             </div>
@@ -286,30 +286,30 @@
               <label for="person_in_charge" style="font-size: 0.875rem !important; font-weight: 500 !important">
                 Sales Agent *
               </label>
-              <Dropdown class="p-inputtext-sm" size="small" id="state" v-model="bookStore.thisSchool.agent.uuid"
+              <Dropdown class="p-inputtext-sm" size="small" id="state" v-model="bookStore.thisBook.agent.uuid"
                 :options="userStore.salesAgentUsers" :optionValue="(data) => data.uuid"
                 :optionLabel="(data: User) => `${data.first_name} ${data.middle_name ? data.middle_name.slice(0, 1) + '.' : ''} ${data.last_name}`"
-                placeholder="Select Sales Agent" :invalid="formSubmitted && !bookStore.thisSchool.agent.uuid"
-                :dropdownIcon="formSubmitted && !bookStore.thisSchool.agent.uuid ? 'pi pi-chevron-down text-red-300' : 'pi pi-chevron-down'">
+                placeholder="Select Sales Agent" :invalid="formSubmitted && !bookStore.thisBook.agent.uuid"
+                :dropdownIcon="formSubmitted && !bookStore.thisBook.agent.uuid ? 'pi pi-chevron-down text-red-300' : 'pi pi-chevron-down'">
               </Dropdown>
-              <small class="p-invalid text-red-300" v-if="formSubmitted && !bookStore.thisSchool.agent.uuid">
+              <small class="p-invalid text-red-300" v-if="formSubmitted && !bookStore.thisBook.agent.uuid">
                 Sales Agent is required.
               </small>
             </div>
           </div> -->
           <template #footer>
             <Button label="Cancel" icon="pi pi-times" :text="true" @click="hideDialog" />
-            <Button label="Save" icon="pi pi-check" :text="true" @click="onClickSaveSchool" />
+            <Button label="Save" icon="pi pi-check" :text="true" @click="" />
           </template>
         </Dialog>
 
         <Dialog v-model:visible="deleteUserDialog" :style="{ width: '450px' }" header="Confirm" :modal="true">
           <div class="flex align-items-center justify-content-center">
             <i class="pi pi-exclamation-triangle mr-3 text-red-500" style="font-size: 2rem" />
-            <span v-if="bookStore.selectedSchool">
+            <span v-if="bookStore.selectedBook">
               Are you sure you want to delete
               <b>
-                {{ `${bookStore.thisSchool.name}` }}
+                {{ `${bookStore.thisBook.title}` }}
               </b>
               ?
             </span>
@@ -326,32 +326,23 @@
 
 <script setup lang="ts">
   import { FilterMatchMode } from 'primevue/api'
-  import { ref, onMounted, onBeforeMount, watch } from 'vue'
-  import { BOOK_CATEGORY, TABLE_DATA, type School, type User, } from '@/stores/types'
+  import { ref, onMounted, onBeforeMount } from 'vue'
+  import { BOOK_CATEGORY, TABLE_DATA, type Book, type User, } from '@/stores/types'
   import { useAppStore } from '@/stores/app'
   import { useBookStore } from '@/stores/book'
+  import { useUserStore } from '@/stores/user'
 
   const appStore = useAppStore()
   const bookStore = useBookStore()
-
+  const userStore = useUserStore()
 
   const bookDialog = ref(false)
   const deleteUserDialog = ref(false)
   const filters = ref({})
-
-  const toggleState = ref(true)
   const formSubmitted = ref(false)
 
   const breadcrumbHome = ref({ icon: 'pi pi-home', to: '/' })
-  const breadcrumbItems = ref([
-    { label: 'Dashboard' }
-    // { label: 'Notebook' },
-    // { label: 'Accessories' },
-    // { label: 'Backpacks' },
-    // { label: 'Item' }
-  ])
-
-
+  const breadcrumbItems = ref([{ label: 'Dashboard' }])
 
   onBeforeMount(() => {
     initFilters()
@@ -359,13 +350,10 @@
 
   onMounted(() => {
     bookStore.getBooks()
-
   })
 
   const generateLabel = (string1: string, string3: string) => {
     return `${string1} ${string3}`
-    // ('middle_name' ? 'middle_name'.splice(0, 0) + '.' : '') 'last_name' 
-
   }
 
   const openNew = () => {
@@ -380,51 +368,48 @@
     formSubmitted.value = false
   }
 
-  const onClickSaveSchool = async () => {
-    const _user = userStore.getUserByUuid(bookStore.thisSchool.agent as User)
-    if (_user) {
-      bookStore.thisSchool.agent = _user as User
-    }
+  // const onClickSaveSchool = async () => {
+  //   const _user = userStore.getUserByUuid(bookStore.thisBook.agent as User)
+  //   if (_user) {
+  //     bookStore.thisBook.agent = _user as User
+  //   }
 
-    formSubmitted.value = true
-    const response = await bookStore.saveSchool()
-    if (response.status === 'success') {
-      bookDialog.value = false
-      formSubmitted.value = false
-    }
-    appStore.displayToast(response)
+  //   formSubmitted.value = true
+  //   const response = await bookStore.saveBook()
+  //   if (response.status === 'success') {
+  //     bookDialog.value = false
+  //     formSubmitted.value = false
+  //   }
+  //   appStore.displayToast(response)
+  // }
 
-  }
-
-  const onClickEditBtn = (_school: School) => {
-    console.log(`bookStore.selectedSchool :: ${JSON.stringify(bookStore.selectedSchool)}`)
+  const onClickEditBtn = (_school: Book) => {
     if (
-      bookStore.selectedSchool.uuid !== _school.uuid ||
-      JSON.stringify(bookStore.selectedSchool) === '{}'
+      bookStore.selectedBook.uuid !== _school.uuid ||
+      JSON.stringify(bookStore.selectedBook) === '{}'
     ) {
-      bookStore.selectedSchool = _school
+      bookStore.selectedBook = _school
     }
-    // bookStore.thisSchool = { ...bookStore.selectedSchool }
-    bookStore.thisSchool = JSON.parse(JSON.stringify({ ...bookStore.selectedSchool })) as School
+    bookStore.thisBook = JSON.parse(JSON.stringify({ ...bookStore.selectedBook })) as Book
     bookDialog.value = true
   }
 
-  const confirmDeleteProduct = (_school: School) => {
+  const confirmDeleteProduct = (_school: Book) => {
     if (
-      bookStore.selectedSchool.uuid !== _school.uuid ||
-      JSON.stringify(bookStore.selectedSchool) === '{}'
+      bookStore.selectedBook.uuid !== _school.uuid ||
+      JSON.stringify(bookStore.selectedBook) === '{}'
     ) {
-      bookStore.selectedSchool = _school
+      bookStore.selectedBook = _school
     }
-    bookStore.thisSchool = { ...bookStore.selectedSchool }
+    bookStore.thisBook = { ...bookStore.selectedBook }
     deleteUserDialog.value = true
   }
 
   const onClickConfirmBtn = async () => {
-    const response = await bookStore.deleteSchool(bookStore.thisSchool)
+    const response = await bookStore.deleteBook(bookStore.thisBook)
     if (response.status === 'success') {
       deleteUserDialog.value = false
-      bookStore.clearSchoolState()
+      bookStore.clearBookState()
     }
     appStore.displayToast(response)
   }
@@ -435,5 +420,6 @@
     }
   }
 </script>
+
 
 <style scoped></style>

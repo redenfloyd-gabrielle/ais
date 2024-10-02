@@ -29,7 +29,7 @@ export const useBookStore = defineStore('book', () => {
 
     _book.uuid = faker.string.uuid()
     _book.title = faker.commerce.productName()
-    _book.unit_price = faker.commerce.price({ min: 200, max: 900 }) // 154.00
+    _book.unit_price = parseFloat(faker.commerce.price({ min: 200, max: 900 })) // 154.00
     _book.category = faker.helpers.arrayElement(Object.values(BOOK_CATEGORY))
     _book.year_published = faker.number.int({ min: 2015, max: 2024 })
     _book.author = faker.person.fullName()
