@@ -38,6 +38,11 @@ const router = createRouter({
           path: '/books',
           name: 'books',
           component: () => import('@/components/book/Book.vue')
+        },
+        {
+          path: '/inventory',
+          name: 'inventory',
+          component: () => import('@/components/inventory/Inventory.vue')
         }
       ]
     },

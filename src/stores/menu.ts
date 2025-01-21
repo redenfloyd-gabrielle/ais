@@ -37,11 +37,12 @@ export const useMenuStore = defineStore('menu', () => {
       user: USER_TYPE.SuperAdmin
     },
     {
-      label: 'Home',
+      label: 'Menu',
       items: [
         { label: 'Dashboard', icon: 'pi pi-fw pi-home', to: '/dashboard' },
         { label: 'Schools', icon: 'pi pi-fw pi-graduation-cap', to: '/schools' },
-        { label: 'Books', icon: 'pi pi-fw pi-book', to: '/books' }
+        { label: 'Books', icon: 'pi pi-fw pi-book', to: '/books' },
+        { label: 'Inventory', icon: 'pi pi-fw pi-warehouse', to: '/inventory' }
       ],
       separator: false,
       user: USER_TYPE.SuperAdmin

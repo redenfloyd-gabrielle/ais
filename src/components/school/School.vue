@@ -365,7 +365,6 @@
   })
 
   onMounted(() => {
-    addressStore.getPHAddressData()
     schoolStore.getSchools()
   })
 

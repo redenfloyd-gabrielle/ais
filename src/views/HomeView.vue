@@ -14,24 +14,24 @@
     <!-- <app-config></app-config> -->
     <div class="layout-mask"></div>
   </div>
-  <Toast  />
+  <Toast />
 </template>
 
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import AppTopbar from '@/components/common/AppTopbar.vue'
-import AppSidebar from '@/components/common/AppSidebar.vue'
-import { useAppStore } from '@/stores/app'
+  import { RouterView } from 'vue-router'
+  import AppTopbar from '@/components/common/AppTopbar.vue'
+  import AppSidebar from '@/components/common/AppSidebar.vue'
+  import { useAppStore } from '@/stores/app'
 
-const appStore = useAppStore()
+  const appStore = useAppStore()
 </script>
 
 <style>
-@media (min-width: 1024px) {
-  .about {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
+  @media (min-width: 1024px) {
+    .about {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+    }
   }
-}
 </style>
